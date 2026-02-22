@@ -1,0 +1,66 @@
+{
+  "name": "Day1_Email_Automation",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "cc00610f-b7bf-4708-ab18-9606464a0bfa",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "sendTo": "akhilmaddi2004@gmail.com",
+        "subject": "Test Email",
+        "message": "Hey Akhil! This mail is automated...  Today I built my first automation.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "35d872c1-a1b4-444e-b36f-aeaebf1cf026",
+      "name": "Send a message",
+      "webhookId": "b5087f6f-b869-4187-ab5c-fb3298e1c329",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "astg7DMd47DkKCsu",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "a703bb11-0a00-4ad6-8a53-3dcb50a491e7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "06f5c37a48728756914709b91b370c5fdfc44bd54743c5ebb4d2fa9c33840465"
+  },
+  "id": "HPTQJ67YxGReZw83",
+  "tags": []
+}
