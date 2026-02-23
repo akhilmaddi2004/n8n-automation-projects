@@ -1,0 +1,117 @@
+{
+  "name": "Day2 User Data Generator",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "be045278-3a9d-452d-856e-765cf180ea5b",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5328307f-d941-438d-ba98-448f64e12f52",
+              "name": "message",
+              "value": "=Hello {{ $json['Name:'] }},\n\nYou are {{ $json['Age:'] }} years old and enrolled in the {{ $json.Course }} course. \nYour registered email is {{ $json['Email:'] }}.  \n\nWelcome to the program and best wishes for your learning journey.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "27b118ed-d08b-4df4-96dd-8c8d9066c9c1",
+      "name": "Message Generator"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a7c92fd8-7cf1-481f-9f8f-b7de424609fe",
+              "name": "Name:",
+              "value": "Akhil",
+              "type": "string"
+            },
+            {
+              "id": "2e6a65bd-2578-4aab-9f12-ec86eae50bc9",
+              "name": "Age:",
+              "value": 22,
+              "type": "number"
+            },
+            {
+              "id": "0ce4e551-c91c-4a09-ae86-89dc2cb00028",
+              "name": "Course",
+              "value": "Automation",
+              "type": "string"
+            },
+            {
+              "id": "f83e87aa-c140-4dc7-9c89-9b2b2c389f64",
+              "name": "Email:",
+              "value": "akhil121@gmail.com",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "6eab4952-7d21-4989-92ca-9b7744424984",
+      "name": "Set node"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Set node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set node": {
+      "main": [
+        [
+          {
+            "node": "Message Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "232ed9d7-d29b-4f3e-9e90-6d63c1c1a32f",
+  "meta": {
+    "instanceId": "06f5c37a48728756914709b91b370c5fdfc44bd54743c5ebb4d2fa9c33840465"
+  },
+  "id": "K8yZbw5O5olprB3l",
+  "tags": []
+}
