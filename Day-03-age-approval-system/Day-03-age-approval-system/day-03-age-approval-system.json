@@ -1,0 +1,188 @@
+{
+  "name": "day-03-age-approval-system",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a7dfc928-4bae-4dd5-a2ef-f227cfbb43b6",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "ed54126a-e0b5-4498-8a0b-6f7cfbee8018",
+              "leftValue": "={{ $json['Age:'] }}",
+              "rightValue": 18,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": "={{ false }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "456bf244-36dc-4f11-b5da-413bb76143e9",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "akhilmaddi2004@gmail.com",
+        "subject": "Application Approved",
+        "emailType": "text",
+        "message": "=Hello{{ $json['Name:'] }} , \n\nYour application is approved because your age is above 18.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        -96
+      ],
+      "id": "ef1b7d03-edcd-4cbc-8634-6322f854d175",
+      "name": "Send a message",
+      "webhookId": "f0e487a6-7fff-495b-b5de-4ff25a20102a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "astg7DMd47DkKCsu",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "akhilmaddi2004@gmail.com",
+        "subject": "Application Rejected",
+        "message": "=Hello {{ $json['Name:'] }}, \n\nYour application is approved because your age is above 18.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        96
+      ],
+      "id": "d1a5b41d-12c5-4fab-801e-9c7664846a16",
+      "name": "Send a message1",
+      "webhookId": "ac47013f-1125-4e28-8d40-12c67bd786f1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "astg7DMd47DkKCsu",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e048412c-093d-4a04-84a8-6b8cc3b4270b",
+              "name": "Name:",
+              "value": "Akhil",
+              "type": "string"
+            },
+            {
+              "id": "bd255bc6-a57d-4eca-8dfc-cf09e766a48e",
+              "name": "Age:",
+              "value": 22,
+              "type": "number"
+            },
+            {
+              "id": "d4ff8ee5-a60d-4fe8-802c-8a8390076436",
+              "name": "Email:",
+              "value": "akhil121@gmail.com",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "1824565a-3f8a-4389-bb9b-3b5756ba3aa4",
+      "name": "Set User Data"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Set User Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set User Data": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "a542ca54-d782-4952-8e80-8679fde31e18",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "06f5c37a48728756914709b91b370c5fdfc44bd54743c5ebb4d2fa9c33840465"
+  },
+  "id": "SfGpiKyUswFwvupc",
+  "tags": []
+}
