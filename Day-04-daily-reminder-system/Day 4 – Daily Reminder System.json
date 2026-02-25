@@ -1,0 +1,110 @@
+{
+  "name": "Day 4 – Daily Reminder System",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 11,
+              "triggerAtMinute": 15
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f3e5829d-79e4-43e9-a818-5e76b83d6c75",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "377d44e4-c484-4c26-89c5-1fcf80a4e1f7",
+              "name": "Message",
+              "value": "Hello Akhil, this is your daily reminder to continue learning automation.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "bc1b197f-9bb4-4e18-8b6c-c2d6e007b6b7",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "sendTo": "akhilmaddi2004@gmail.com",
+        "subject": "Daily Automation Reminder",
+        "emailType": "text",
+        "message": "={{ $json.Message }} \n\nThis means the email body will come from the Set node.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "2b0a5521-6c4e-4bf0-a4c1-276d15c2c25c",
+      "name": "Send a message",
+      "webhookId": "c7764c31-789f-4ee6-940b-d9857c868d7a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "astg7DMd47DkKCsu",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "f0465479-5765-4ce0-ab2b-768fd0625b5e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "06f5c37a48728756914709b91b370c5fdfc44bd54743c5ebb4d2fa9c33840465"
+  },
+  "id": "sBISkiub4BJ0wNze",
+  "tags": []
+}
