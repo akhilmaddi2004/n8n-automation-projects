@@ -1,0 +1,138 @@
+{
+  "name": "Day 5 – Weather API Email Report",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://api.open-meteo.com/v1/forecast?latitude=17.3850&longitude=78.4867&current_weather=true",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "a73ebce6-6601-4ddc-854f-16fe6c28526b",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf0c74c8-4adb-4610-b7c4-25709e76afe8",
+              "name": "Temperature: ",
+              "value": "={{ $json.current_weather.temperature }} {{ $json.current_weather_units.temperature }}",
+              "type": "string"
+            },
+            {
+              "id": "08579ba4-39a2-4e93-a134-da7b26d1eb32",
+              "name": "Windspeed:",
+              "value": "={{ $json.current_weather.windspeed }} {{ $json.current_weather_units.windspeed }}",
+              "type": "string"
+            },
+            {
+              "id": "9e3f4169-a5be-4649-bad5-efaa004de931",
+              "name": "Message: ",
+              "value": "=Weather Report for Today: \n\nTemperature: {{ $json.current_weather.temperature }} °C \nWind Speed: {{ $json.current_weather.windspeed }} km/h ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "da6ca1e3-7821-4e2f-8771-01a86a2680c8",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "sendTo": "akhilmaddi2004@gmail.com",
+        "subject": "Today's Weather Report",
+        "emailType": "text",
+        "message": "={{ $json['Message: '] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "482741db-7c98-4884-82f4-8c055f7fb1f1",
+      "name": "Send a message",
+      "webhookId": "38056346-f630-456f-b71e-7ed805c1f47c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "astg7DMd47DkKCsu",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "bd7f1b8a-42d2-4182-9d82-bfd6f1286622",
+      "name": "When clicking ‘Execute workflow’"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "8dd311b7-2c27-4930-a297-f6efca5bf49a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "06f5c37a48728756914709b91b370c5fdfc44bd54743c5ebb4d2fa9c33840465"
+  },
+  "id": "eWuLiRvPXztOJvyo",
+  "tags": []
+}
