@@ -1,0 +1,175 @@
+{
+  "name": "Day 6 – Website Uptime Monitor",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "34a816a7-bdff-4155-b319-181b1caaa115",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://google.com",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "7709ff19-2d47-4d9c-b696-e0302778fb2c",
+      "name": "HTTP Request",
+      "alwaysOutputData": true,
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a1de0799-2c5d-4feb-b4e4-fb2a032c8f85",
+              "leftValue": "={{$json.error}}{{ $json.data }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "9423b68d-e61a-4dab-8de9-dcaf9bd97d91",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "akhilmaddi2004@gmail.com",
+        "subject": "Website Down Alert",
+        "emailType": "text",
+        "message": "=Alert!  \n\nThe website is not responding. \nURL: https://yourwebsite.com  \nError: \n{{$json.error.message}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        624,
+        -96
+      ],
+      "id": "9f4a9879-7842-4da5-966f-72a7d0cd7b5c",
+      "name": "Send a message",
+      "webhookId": "a9f8551d-8f33-4452-8b3f-19205101314c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "astg7DMd47DkKCsu",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "akhilmaddi2004@gmail.com",
+        "emailType": "text",
+        "message": "=Alert!  \n\nThe website is not responding.\nURL: https://yourwebsite.com  \nError: \n{{$json.error.message}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        624,
+        96
+      ],
+      "id": "587a0c8e-b270-4026-b774-4b555d5d68d9",
+      "name": "Send a message1",
+      "webhookId": "898e99bd-738c-4fa9-a605-da60ec5e54dc",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "astg7DMd47DkKCsu",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "c12958d8-c40a-41bd-bb40-652d51458e3b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "06f5c37a48728756914709b91b370c5fdfc44bd54743c5ebb4d2fa9c33840465"
+  },
+  "id": "5lRFvCEOuLVY9rSP",
+  "tags": []
+}
